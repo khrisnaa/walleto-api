@@ -11,7 +11,7 @@ export const sendEmail = async ({ to, subject, text }: EmailOptions) => {
   try {
     const transporter = nodemailer.createTransport(
       MailtrapTransport({
-        token: process.env.MAILTRAP_TOKEN!,
+        token: process.env.APP_MAILTRAP_TOKEN!,
       })
     );
 

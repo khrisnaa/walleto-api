@@ -17,7 +17,7 @@ const router = express.Router();
 
 // Generate JWT
 const generateToken = (id: string) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET!, { expiresIn: '7d' });
+  return jwt.sign({ id }, process.env.APP_JWT_SECRET!, { expiresIn: '7d' });
 };
 
 // --- REGISTER ---
@@ -34,7 +34,7 @@ router.post('/register', validate(RegisterSchema), async (req: Request, res: Res
     await user.save();
 
     // Verification URL
-    const verificationUrl = `${process.env.BASE_URL}/api/auth/verify-email/${verificationToken}`;
+    const verificationUrl = `${process.env.APP_BASE_URL}/api/auth/verify-email/${verificationToken}`;
 
     // Send verification email
     await sendEmail({
@@ -124,7 +124,7 @@ router.post(
       await user.save();
 
       // Send email
-      const resetUrl = `${process.env.BASE_URL}/reset-password/${resetToken}`;
+      const resetUrl = `${process.env.APP_BASE_URL}/reset-password/${resetToken}`;
 
       await sendEmail({
         to: user.email,
